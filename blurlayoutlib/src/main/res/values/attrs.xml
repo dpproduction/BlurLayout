@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- blur layout -->
+    <declare-styleable name="BlurLayout">
+        <attr name="blurRadius" format="integer"/>
+        <attr name="scaleFactor" format="float"/>
+        <attr name="targetView" format="reference"/>
+        <attr name="cropSubArea" format="boolean"/>
+    </declare-styleable>
+</resources>
