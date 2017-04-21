@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         app:cropSubArea="true"
         app:blurRadius="3"
-        app:scaleFactor="15"
+        app:scaleFactor="10"
         app:targetView="@+id/image"/>
 
 </FrameLayout>

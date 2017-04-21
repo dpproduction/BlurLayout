@@ -146,8 +146,8 @@ public class BlurLayout extends FrameLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        getHandler().removeCallbacksAndMessages(null);
         stop();
+        getHandler().removeCallbacksAndMessages(null);
     }
 
     private synchronized void start() {
@@ -172,7 +172,6 @@ public class BlurLayout extends FrameLayout {
             getHandler().post(new Runnable() {
                 @Override
                 public void run() {
-                    Log.i(TAG, "invalidateBlurFrame");
                     mBlurredImageView.setImageBitmap(bitmap);
                 }
             });
@@ -216,9 +215,6 @@ public class BlurLayout extends FrameLayout {
             bitmap = cropBitmap(bitmap);
         }
         return bitmap;
-//        mView.setDrawingCacheEnabled(true);
-//        mView.buildDrawingCache();
-//        return mView.getDrawingCache();
     }
 
     private Bitmap scaleBitmap(Bitmap myBitmap) {
@@ -231,11 +227,9 @@ public class BlurLayout extends FrameLayout {
         int[] coords = new int[2];
         getLocationInWindow(coords);
         if (coords[0] + getWidth() > bitmap.getWidth() || coords[1] + getHeight() > bitmap.getHeight()) {
-            Log.i(TAG, "crop " + (coords[0] + getWidth()) + " <= " + bitmap.getWidth() + " " + coords[1] + getHeight() + " <= " + getHeight());
+            Log.e(TAG, "crop error " + (coords[0] + getWidth()) + " <= " + bitmap.getWidth() + " " + coords[1] + getHeight() + " <= " + getHeight());
             return bitmap;
         }
-        Log.i(TAG, "getLocationInWindow " + coords[0] + " " + coords[1]);
-
         Bitmap croppedBitmap = Bitmap.createBitmap(bitmap, coords[0], coords[1], getWidth(), getHeight());
         bitmap.recycle();
         return croppedBitmap;

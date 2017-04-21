@@ -13,8 +13,7 @@
     <com.dgroup.blurlayoutlib.BlurLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:blurRadius="10"
-        app:scaleFactor="15"
+        app:scaleFactor="10"
         app:updateFrequency="100"
         app:targetView="@+id/textureView"
     />
