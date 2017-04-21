@@ -6,5 +6,6 @@
         <attr name="scaleFactor" format="float"/>
         <attr name="targetView" format="reference"/>
         <attr name="cropSubArea" format="boolean"/>
+        <attr name="updateFrequency" format="integer"/>
     </declare-styleable>
 </resources>

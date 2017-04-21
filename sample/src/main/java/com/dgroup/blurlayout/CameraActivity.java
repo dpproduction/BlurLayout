@@ -34,7 +34,7 @@ public class CameraActivity extends Activity implements TextureView.SurfaceTextu
         mTextureView = (TextureView) findViewById(R.id.textureView);
         mTextureView.setSurfaceTextureListener(this);
 
-        if(!checkCameraPermission()){
+        if (!checkCameraPermission()) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA},
                     MY_PERMISSIONS_REQUEST_CAMERA);
@@ -46,7 +46,7 @@ public class CameraActivity extends Activity implements TextureView.SurfaceTextu
         super.onDestroy();
     }
 
-    private boolean checkCameraPermission(){
+    private boolean checkCameraPermission() {
         return ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED;
@@ -63,7 +63,7 @@ public class CameraActivity extends Activity implements TextureView.SurfaceTextu
     }
 
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-        Log.i("CameraActivity","onSurfaceTextureAvailable");
+        Log.i("CameraActivity", "onSurfaceTextureAvailable");
         this.surface = surface;
         if (checkCameraPermission()) {
             startCamera();
@@ -75,7 +75,7 @@ public class CameraActivity extends Activity implements TextureView.SurfaceTextu
     }
 
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-        if(mCamera!=null) {
+        if (mCamera != null) {
             mCamera.stopPreview();
             mCamera.release();
         }
@@ -86,7 +86,7 @@ public class CameraActivity extends Activity implements TextureView.SurfaceTextu
         // Invoked every time there's a new Camera preview frame
     }
 
-    private void startCamera(){
+    private void startCamera() {
         mCamera = Camera.open();
         setCameraDisplayOrientation();
         try {
@@ -117,16 +117,8 @@ public class CameraActivity extends Activity implements TextureView.SurfaceTextu
                 degrees = 270;
                 break;
         }
-
-        int result;
-
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-            result = (info.orientation + degrees) % 360;
-            result = (360 - result) % 360;
-        } else {
-            result = (info.orientation - degrees + 360) % 360;
-        }
-
-        mCamera.setDisplayOrientation(result);
+        final int displayOrientation = (info.orientation
+                - degrees + 360) % 360;
+        mCamera.setDisplayOrientation(displayOrientation);
     }
 }

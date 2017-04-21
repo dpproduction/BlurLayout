@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         app:blurRadius="10"
         app:scaleFactor="15"
+        app:updateFrequency="100"
         app:targetView="@+id/textureView"
     />
 </FrameLayout>
