@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -91,11 +93,6 @@ public class BlurLayout extends FrameLayout {
         addView(mBlurredImageView);
     }
 
-    public void setTargetView(View targetView) {
-        mTargetViewId = targetView.getId();
-        this.mTargetView = targetView;
-    }
-
     public void setBlurRadius(int blurRadius) {
         mBlurRadius = blurRadius;
     }
@@ -110,7 +107,11 @@ public class BlurLayout extends FrameLayout {
         if (mTargetViewId != 0) {
             mTargetView = getRootView().findViewById(mTargetViewId);
         }
-        start();
+        if(mUpdateFrequency>0) {
+            start();
+        }else{
+            takeFirstFrame();
+        }
     }
 
     @Override
@@ -130,11 +131,29 @@ public class BlurLayout extends FrameLayout {
             public void run() {
                 render();
             }
-        }, 0, mUpdateFrequency == 0 ? DEFAULT_RENDER_PERIOD : mUpdateFrequency);
+        }, 0, mUpdateFrequency);
     }
 
     private synchronized void stop() {
-        mTimer.cancel();
+        if(mTimer!=null) {
+            mTimer.cancel();
+        }
+    }
+
+    private void takeFirstFrame() {
+        mTargetView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if(mTargetView.getHeight()>0){
+                    render();
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                        mTargetView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    } else {
+                        mTargetView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                }
+            }
+        });
     }
 
     @UiThread
@@ -156,9 +175,6 @@ public class BlurLayout extends FrameLayout {
                 bitmap = scaleBitmap(bitmap);
                 bitmap = Utils.getBlurBitmap(bitmap, mBlurRadius);
                 invalidateBlurFrame(bitmap);
-                if (mUpdateFrequency <= 0) {
-                    stop();
-                }
             }
         }
     }
