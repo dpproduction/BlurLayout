@@ -1,1 +1,1 @@
-include ':sample', ':blurlayoutlib'
+include ':sample', ':lib'

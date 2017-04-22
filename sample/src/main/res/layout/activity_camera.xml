@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.dgroup.blurlayoutlib.BlurLayout
+    <com.dgroup.views.BlurLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:scaleFactor="10"

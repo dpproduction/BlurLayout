@@ -1,4 +1,4 @@
-package com.dgroup.blurlayoutlib;
+package com.dgroup.views;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -65,7 +65,7 @@ public class BlurLayout extends FrameLayout {
         init(attrs);
     }
 
-    private void init(AttributeSet attrs) {
+    private void init(@Nullable AttributeSet attrs) {
         if (attrs != null) {
             TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.BlurLayout, 0, 0);
             try {

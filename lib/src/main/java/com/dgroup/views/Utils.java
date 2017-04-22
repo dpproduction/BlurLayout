@@ -1,4 +1,4 @@
-package com.dgroup.blurlayoutlib;
+package com.dgroup.views;
 
 import android.graphics.Bitmap;
 
