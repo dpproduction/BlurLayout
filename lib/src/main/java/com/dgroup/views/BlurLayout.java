@@ -9,6 +9,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.annotation.UiThread;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.TextureView;
@@ -136,6 +137,7 @@ public class BlurLayout extends FrameLayout {
         mTimer.cancel();
     }
 
+    @UiThread
     private void invalidateBlurFrame(final Bitmap bitmap) {
         if (getHandler() != null) {
             getHandler().post(new Runnable() {

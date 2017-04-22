@@ -1,7 +1,7 @@
 # BlurLayout
 A fast blur layout based on FrameLayout for Android platform.
 This layout can be used for realtime bluring, for example blur some area of live camera.
-
+![BlurLayout](https://raw.githubusercontent.com/gabberrr/BlurLayout/master/screen.png)
 Usage
 -----
 ```xml
@@ -30,5 +30,4 @@ Attrs
 By default `updateFrequency` equals 0. It means that only one bluring snapshot will be taken (first available).
 `updateFrequency="100"` means that snapshots will be taken every 100 milliseconds.
 
-![BlurLayout](https://raw.githubusercontent.com/gabberrr/BlurLayout/master/screen.png)
-
+Pull Requests are welcome!
