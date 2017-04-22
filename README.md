@@ -4,7 +4,7 @@ A fast blur layout based on FrameLayout for Android platform.
 This layout can be used for realtime bluring, for example blur some area of live camera. <br/>
 Or you can use it for blur some afea of background.
 
-![BlurLayout](https://raw.githubusercontent.com/gabberrr/BlurLayout/master/screen.png)
+![BlurLayout](https://raw.githubusercontent.com/dpproduction/BlurLayout/master/screen.png)
 
 Usage
 -----
