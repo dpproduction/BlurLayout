@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -91,34 +88,6 @@ public class BlurLayout extends FrameLayout {
         mBlurredImageView.setClickable(false);
         mBlurredImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         addView(mBlurredImageView);
-
-//        Button start = new Button(getContext());
-//        Button stop = new Button(getContext());
-//        start.setText("start");
-//        stop.setText("stop");
-//        start.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                start();
-//            }
-//        });
-//        stop.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                stop();
-//            }
-//        });
-//        FrameLayout.LayoutParams params1 = new FrameLayout.LayoutParams(
-//                300, 200);
-//        params1.gravity = Gravity.BOTTOM | Gravity.START;
-//
-//        FrameLayout.LayoutParams params2 = new FrameLayout.LayoutParams(
-//                300, 200);
-//        params2.gravity = Gravity.BOTTOM | Gravity.END;
-//
-//        addView(start, params1);
-//        addView(stop, params2);
-
     }
 
     public void setTargetView(View targetView) {
@@ -196,8 +165,6 @@ public class BlurLayout extends FrameLayout {
         if (mView.getHeight() == 0) {
             return null;
         }
-
-
         Bitmap bitmap;
         if (mView instanceof TextureView) {
             TextureView textureView = (TextureView) mView;
