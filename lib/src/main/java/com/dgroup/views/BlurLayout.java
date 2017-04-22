@@ -107,9 +107,13 @@ public class BlurLayout extends FrameLayout {
         if (mTargetViewId != 0) {
             mTargetView = getRootView().findViewById(mTargetViewId);
         }
-        if(mUpdateFrequency>0) {
+        if (mTargetView == null) {
+            Log.e(TAG, "target view is null");
+            return;
+        }
+        if (mUpdateFrequency > 0) {
             start();
-        }else{
+        } else {
             takeFirstFrame();
         }
     }
@@ -135,7 +139,7 @@ public class BlurLayout extends FrameLayout {
     }
 
     private synchronized void stop() {
-        if(mTimer!=null) {
+        if (mTimer != null) {
             mTimer.cancel();
         }
     }
@@ -144,13 +148,13 @@ public class BlurLayout extends FrameLayout {
         mTargetView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if(mTargetView.getHeight()>0){
-                    render();
+                if (mTargetView.getHeight() > 0) {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
                         mTargetView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     } else {
                         mTargetView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
+                    render();
                 }
             }
         });
@@ -169,13 +173,11 @@ public class BlurLayout extends FrameLayout {
     }
 
     private void render() {
-        if (mTargetView != null) {
-            Bitmap bitmap = obtainBitmap(mTargetView);
-            if (bitmap != null) {
-                bitmap = scaleBitmap(bitmap);
-                bitmap = Utils.getBlurBitmap(bitmap, mBlurRadius);
-                invalidateBlurFrame(bitmap);
-            }
+        Bitmap bitmap = obtainBitmap(mTargetView);
+        if (bitmap != null) {
+            bitmap = scaleBitmap(bitmap);
+            bitmap = Utils.getBlurBitmap(bitmap, mBlurRadius);
+            invalidateBlurFrame(bitmap);
         }
     }
 
